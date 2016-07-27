@@ -1,6 +1,15 @@
+#!/usr/bin/python3
+
 import os.path
 import sys
 import re
+"""Utility to quickly change .Xresources colorschemes
+$ themechanger
+
+Add .Xresources colorschemes to $HOME/.config/colors/
+
+The .Xresources file should be in $HOME/
+"""
 
 HOMEPATH = os.path.expanduser("~")
 COLORPATH = "".join([HOMEPATH, "/.config/colors/"])
@@ -61,7 +70,7 @@ def changeColor():
 
     currentScheme = getCurrent()
     schemeChoice = 0
-    
+
     while True:
         print('Colorscheme choices:')
 
@@ -73,25 +82,23 @@ def changeColor():
 
         try:
             schemeChoice = int(schemeChoice)
-            print(schemeList[schemeChoice - 1])
         except ValueError:
             print("Must be a digit in the provided range. Please choose again.")
             continue
         except IndexError:
             print("Must be a digit in the provided range. Please choose again.")
             continue
-        
+
         break
 
-    print(currentScheme)
     with open(XRESPATH, 'r') as r:
         with open(XRESPATH + '.tmp', 'w') as w:
             for line in r:
                 w.write(line.replace(currentScheme, schemeList[schemeChoice - 1]))
 
     os.rename(XRESPATH + '.tmp', XRESPATH)
-    
+
 configCheck()
-print('Current colorscheme: {}'.format(getCurrent))
+print('Current colorscheme: {}'.format(getCurrent()))
 changeColor()
 os.system('xrdb {}'.format(XRESPATH))
