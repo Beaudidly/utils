@@ -2,11 +2,6 @@
 
 # Austin Bodzas - July 2016
 
-# Little bash utility I wrote a little too late at night
-# These are my early days of bash scripting, I feel like
-# I will get addicted to this...
-
-
 # TODO write help flag functionality to describe how to use it 
 # and what it does
 
@@ -95,15 +90,30 @@ list () {
     done
 }
 
+help () {
+    printf "Usage: updatedot.sh [options]\n\n"
+    printf "Keep track of dotfiles and their storage in a repository.\n\n"
+    printf "Options:\n"
+    printf "%s\n" "-t <file>       add the file to the tracking list"
+    printf "%s\n" "-u              update the files in the repo"
+    printf "%s\n\n" "-l              list the files being tracked"
+    printf "%s\n" "-h              displays this help message"
+
+    exit 0
+}
+
 # load tracked files
 mapfile -t FILELIST < "$HOME/share/dottrack.log"
 
-while getopts 't:ul' flag; do
+while getopts 't:uhl' flag; do
     case "${flag}" in
         t) track "$OPTARG" ;;
         u) update ;;
         l) list ;;
+        h) help ;;
         \?) list ;;
         *) ( >&2 echo "Not a valid flag." )
+           help
+           ;;
     esac
 done
