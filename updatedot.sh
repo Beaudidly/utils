@@ -2,8 +2,6 @@
 
 # Austin Bodzas - July 2016
 
-# TODO write help flag functionality to describe how to use it 
-# and what it does
 
 FILELIST=()
 DOTDIR="$HOME/pkgs/dotfiles/"
@@ -41,6 +39,7 @@ update () {
     do
         cp "$file" "$DOTDIR"
     done
+    printf "${GREEN} Files updated.\n" 
 }
 
 isoutdated () {
@@ -91,13 +90,13 @@ list () {
 }
 
 help () {
-    printf "Usage: updatedot.sh [options]\n\n"
+    printf "Usage:\n updatedot.sh [options]\n\n"
     printf "Keep track of dotfiles and their storage in a repository.\n\n"
     printf "Options:\n"
-    printf "%s\n" "-t <file>       add the file to the tracking list"
-    printf "%s\n" "-u              update the files in the repo"
-    printf "%s\n\n" "-l              list the files being tracked"
-    printf "%s\n" "-h              displays this help message"
+    printf "%s\n" " -t <file>   add the file to the tracking list"
+    printf "%s\n" " -u          update the files in the repo"
+    printf "%s\n\n" " -l          list the files being tracked"
+    printf "%s\n" " -h          displays this help message"
 
     exit 0
 }
