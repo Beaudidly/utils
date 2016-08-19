@@ -28,10 +28,14 @@ track ()
             exit 2
         fi
     done
+
     
     # append new file to the end of the log
     echo "Adding $1 to update list"
     echo "$1" >> ~/share/dottrack.log
+
+    # Copy new file to dotdir
+    cp $1 $DOTDIR
 }
 
 update () {
